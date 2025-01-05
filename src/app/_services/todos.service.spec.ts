@@ -1,25 +1,25 @@
 import { TestBed } from '@angular/core/testing';
-
 import { TodosService } from './todos.service';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { environment } from '../../environments/environment.development';
-import { TODO_STRING, TODOS_STRING } from '../server/db-data';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { environment } from '../../environments/environment.development'; // Importando a configuração do ambiente
+import { Todo } from '../_models/Todo';
 
 describe('TodosService', () => {
   let toDosService: TodosService;
-  let httpTestingController: HttpTestingController;
+  let httpMock: HttpTestingController;
+  const baseUrl = environment.apiUrl + 'todos'; 
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        TodosService,
-        provideHttpClient(),
-        provideHttpClientTesting()
-      ]
+      imports: [HttpClientTestingModule], 
+      providers: [TodosService],
     });
-    toDosService = TestBed.inject(TodosService);
-    httpTestingController = TestBed.inject(HttpTestingController);
+    toDosService = TestBed.inject(TodosService); 
+    httpMock = TestBed.inject(HttpTestingController);
+  });
+
+  afterEach(() => {
+    httpMock.verify();
   });
 
   it('should be created', () => {
@@ -27,14 +27,47 @@ describe('TodosService', () => {
   });
 
   it('Deve retornar todos os TODOS', () => {
-    const req = httpTestingController.expectOne(environment.apiUrl + "todos");
-    expect(req.request.method).toEqual('GET');
-    req.flush(JSON.parse(TODOS_STRING))
-  })
+    const mockTodos: Todo[] = [
+      {
+        userId: 1,
+        id: 1,
+        title: 'delectus aut autem',
+        completed: false,
+      },
+      {
+        userId: 1,
+        id: 2,
+        title: 'quis ut nam facilis et officia qui',
+        completed: false,
+      },
+    ];
 
-  it('Deve retornar o TODO por Id', async () => {
-    const req = httpTestingController.expectOne(environment.apiUrl + "todos/12");
-    expect(req.request.method).toEqual('GET');
-    req.flush(JSON.parse(TODO_STRING))
-  })
+    toDosService.getAll().subscribe((todos) => {
+      expect(todos.length).toBe(2); 
+      expect(todos).toEqual(mockTodos); 
+    });
+
+    const req = httpMock.expectOne(baseUrl);
+    expect(req.request.method).toBe('GET'); 
+    req.flush(mockTodos); 
+  });
+
+  it('Deve retornar o TODO por Id', () => {
+    const mockTodo: Todo = {
+      userId: 1,
+      id: 1,
+      title: 'delectus aut autem',
+      completed: false,
+    };
+
+    const todoId = 1;
+
+    toDosService.getById(todoId).subscribe((todo) => {
+      expect(todo).toEqual(mockTodo);
+    });
+
+    const req = httpMock.expectOne(`${baseUrl}/${todoId}`);
+    expect(req.request.method).toBe('GET'); 
+    req.flush(mockTodo);
+  });
 });
