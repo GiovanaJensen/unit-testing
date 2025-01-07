@@ -1,0 +1,52 @@
+<div class="container">
+  <p class="main-label">{{label}} <span *ngIf="isRequired" class="required">*</span></p>
+  <input
+    [attr.aria-label]="label"
+    class="main-input"
+    [type]="type"
+    name="{{label | lowercase}}"
+    [formControl]="control"
+    [ngClass]="{
+      'error-border': control.invalid && (control.dirty || control.touched) && isRequired,
+      'success-border': control.valid && (control.dirty || control.touched) && isRequired,
+      'isDisabled': isDisabled
+    }"
+    [minlength]="minLength > 0 ? minLength : 1"
+    [maxLength]="maxLength > 0 ? maxLength : 200"
+    [step]="step"
+    (input)="onInputChange($event)"
+  >
+
+  <div *ngIf="control.invalid && (control.dirty || control.touched)">
+    <div class="error-message message" *ngIf="isRequired && control.hasError('required')">
+      <img src="../../../../assets/error-icon.svg" alt="Ícone de erro">
+      <p>{{label}} é obrigatório</p>
+    </div>
+
+    <div class="error-message message" *ngIf="control.errors?.['invalidEmail'] && control.value">
+      <img src="../../../../assets/error-icon.svg" alt="Ícone de erro">
+      <p>{{label}} precisa estar em um formato válido</p>
+    </div>  
+
+    <div class="error-message message" *ngIf="control.errors?.['invalidCPF'] && control.value">
+      <img src="../../../../assets/error-icon.svg" alt="Ícone de erro">
+      <p>{{label}} precisa ser um CPF válido</p>
+    </div>  
+    <div class="error-message message" *ngIf="control.errors?.['invalidCNPJ'] && control.value">
+      <img src="../../../../assets/error-icon.svg" alt="Ícone de erro">
+      <p>{{label}} precisa ser um CNPJ válido</p>
+    </div>  
+    <div class="error-message message" *ngIf="control.errors?.['min'] && control.value">
+      <img src="../../../../assets/error-icon.svg" alt="Ícone de erro">
+      <p>{{label}} precisa ser positivo</p>
+    </div>  
+    <div class="error-message message" *ngIf="control.errors?.['pastDate'] && control.value">
+      <img src="../../../../assets/error-icon.svg" alt="Ícone de erro">
+      <p>{{label}} precisa ser futura</p>
+    </div>  
+    <div class="error-message message" *ngIf="control.errors?.['invalidCep'] && control.value">
+      <img src="../../../../assets/error-icon.svg" alt="Ícone de erro">
+      <p>{{label}} precisa ser válido</p>
+    </div>  
+  </div>
+</div>
