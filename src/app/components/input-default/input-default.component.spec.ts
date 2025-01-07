@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { InputDefaultComponent } from './input-default.component';
-import { ReactiveFormsModule, FormControl } from '@angular/forms';
+import { ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
 
 describe('InputDefaultComponent', () => {
   let component: InputDefaultComponent;
@@ -30,4 +30,22 @@ describe('InputDefaultComponent', () => {
     expect(component.step).toBe('any');
     expect(component.selectedValue).toBe('');
   });
+
+  it('should mark control as invalid if required and empty', () => {
+    component.isRequired = true;
+    component.control = new FormControl('', Validators.required);
+    component.control.markAsTouched();
+    fixture.detectChanges();
+
+    expect(component.control.invalid).toBeTrue();
+    expect(component.control.hasError('required')).toBeTrue();
+  })
+
+  it('should disable the control when isDisabled is true', () => {
+    component.isDisabled = true;
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    expect(component.control.disabled).toBeTrue();
+  })
 });
