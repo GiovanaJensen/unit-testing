@@ -48,4 +48,56 @@ describe('InputDefaultComponent', () => {
 
     expect(component.control.disabled).toBeTrue();
   })
+
+  it('should limit input max length', () => {
+    component.type = "text";
+    component.maxLength = 5;
+    component.control = new FormControl('', Validators.required);
+    component.control.setValue('');
+
+    const inputEvent = {target: {value: '123456'}};
+    component.onInputChange(inputEvent);
+
+    expect(component.control.value).toBe('12345');
+  })
+
+  it('should parse numeric input correctly', () => {
+    component.type = "number";
+    component.control = new FormControl('', Validators.required);
+    component.control.setValue('');
+
+    const inputEvent = {target: {value: '123'}}
+    component.onInputChange(inputEvent);
+
+    expect(component.control.value).toBe(123)
+  })
+
+  it('should set control value to an empty string on invalid numeric input', () => {
+    component.type = "number";
+    component.control = new FormControl('', Validators.required);
+    component.control.setValue('');
+
+    const inputEvent = {target: {value: 'abc'}};
+    component.onInputChange(inputEvent);
+
+    expect(component.control.value).toBe('')
+  })
+
+  it('should display error message for invalid CPF', () => {
+    const control = new FormControl('12345678900', [
+      (fc) => (fc.value === '12345678900' ? { invalidCPF: true } : null),
+    ]);
+    control.markAsTouched();
+  
+    component.control = control;
+    fixture.detectChanges();
+  
+    expect(control.errors).not.toBeNull();
+    expect(control.errors?.['invalidCPF']).toBe(true);
+  
+    const errorMessage = fixture.nativeElement.querySelector('.error-message p');
+    expect(errorMessage).not.toBeNull();
+    expect(errorMessage.textContent).toContain('precisa ser um CPF válido');
+  });
+  
 });
