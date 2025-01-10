@@ -1,7 +1,9 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
 
 import { CreateNewAccessPlaceComponent } from './create-new-access-place.page';
+import { InputDefaultComponent } from '../../components/input-default/input-default.component';
+import { TextareaComponent } from '../../components/textarea/textarea.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('CreateNewAccessPlaceComponent', () => {
   let component: CreateNewAccessPlaceComponent;
@@ -9,8 +11,13 @@ describe('CreateNewAccessPlaceComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateNewAccessPlaceComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [
+        ReactiveFormsModule,
+        FormsModule,
+        InputDefaultComponent,
+        TextareaComponent,
+        CreateNewAccessPlaceComponent
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(CreateNewAccessPlaceComponent);
@@ -21,4 +28,11 @@ describe('CreateNewAccessPlaceComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should initialize with the default values', () => {
+    expect(component.codeControl.value).toBe('CD00');
+    expect(component.nameControl.value).toBe('');
+    expect(component.descriptionControl.value).toBe('');
+  })
+
 });

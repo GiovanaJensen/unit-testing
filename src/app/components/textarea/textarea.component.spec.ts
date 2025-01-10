@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
 
 import { TextareaComponent } from './textarea.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('TextareaComponent', () => {
   let component: TextareaComponent;
@@ -9,8 +9,7 @@ describe('TextareaComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TextareaComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [TextareaComponent, ReactiveFormsModule, FormsModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(TextareaComponent);
