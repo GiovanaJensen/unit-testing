@@ -1,0 +1,44 @@
+.textarea-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+    .main-label{
+        font-weight: 400;
+        --padding-bottom: 4px;
+        color: #2C2D33;
+    
+        .required{
+            color: #E52600FF;
+        }
+    }
+  
+    textarea {
+      padding: 10px;
+      border: 1px solid #D8DBEB;
+      border-radius: 4px;
+      font-size: 1rem;
+      resize: none; 
+      color: #B2B7D4;
+      margin-top: 4px;
+  
+      &:disabled {
+        border: 1px solid #B2B7D4;
+        background-color: #D8DBEB;
+        cursor: not-allowed;
+        opacity: 1;
+      }
+  
+      &:focus {
+        border-color: #1A88FF;
+        outline: none;
+      }
+    }
+
+    .helper-text {
+      color: #B2B7D4;
+      font-size: 0.813rem;
+      margin-top: 4px;
+    }
+  }
+  

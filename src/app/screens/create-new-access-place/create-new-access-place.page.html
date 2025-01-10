@@ -1,0 +1,23 @@
+<div class="content">
+  <div class="container">
+      <form (ngSubmit)="onSubmit()" [formGroup]="createNewAccessPlace">
+        <div class="row">
+          <app-input-default type="text" label="Código do local" [style.width]="'25%'" [isDisabled]="true" [control]="codeControl"></app-input-default>
+          <app-input-default type="text" label="Nome" [control]="nameControl" [style.width]="'25%'" [isRequired]="true"></app-input-default>
+        </div>
+        <div>
+          <app-textarea
+            label="Descrição"
+            [rows]="10"
+            [cols]="20"
+            [isDisabled]="false"
+            (textChanged)="onDescriptionChange($event)"
+            >
+          </app-textarea>
+        </div>
+        <div class="button-row">
+          <button fill="solid" (click)="onCreateAccessPlace()">Cadastrar</button>
+        </div>
+    </form>
+  </div>
+</div>

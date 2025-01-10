@@ -1,0 +1,15 @@
+<div class="textarea-container">
+  <p class="main-label">{{label}} <span *ngIf="isRequired" class="required">*</span></p>
+  <textarea
+    [rows]="rows"
+    [cols]="cols"
+    [disabled]="isDisabled"
+    (input)="onInputChange($event)"
+    [value]="textValue"
+    [style.width]="width"
+    [attr.maxLength]="maxLength"
+  ></textarea>
+  <div *ngIf="maxLength" class="helper-text">
+    <span>{{ textValue.length }} / {{ maxLength }}</span>
+  </div>
+</div>

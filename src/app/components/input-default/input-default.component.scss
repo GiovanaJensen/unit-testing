@@ -4,7 +4,7 @@
     height: 77px;
 }
 
-ion-text.main-label{
+.main-label{
     font-weight: 400;
     --padding-bottom: 4px;
     color: var(--text-heading-icon);
@@ -19,7 +19,7 @@ input.main-input{
     margin-top: 4px;
     max-height: 34px;
     width: 250px;
-    border: 1px solid var(--border-divider-neutral);
+    border: 1px solid #D8DBEB;
     border-radius: 8px;
     padding: 10px 12px;
     font-size: 0.875rem;
@@ -30,11 +30,11 @@ input.main-input{
     }
 
     &.error-border {
-        border: 1px solid var(--ion-color-danger);
+        border: 1px solid #F31B1B;
     }
 
     &.success-border{
-        border: 1px solid var(--ion-color-success);
+        border: 1px solid #00B21D;
     }
 }
 
@@ -53,11 +53,11 @@ input.main-input{
 }
 
 .error-message{
-    color: var(--ion-color-danger);
+    color: #F31B1B;
 }
 
 input.main-input.isDisabled{
-    border: 1px solid var(--grey-500-mode-1);
-    background-color: var(--color-disabled-neutral);
-    color: var(--text-body-neutral);
+    border: 1px solid #9A9FB8FF;
+    background-color: #D8DBEB;
+    color: #D8DBEB;
 }
