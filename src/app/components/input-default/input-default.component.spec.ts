@@ -99,5 +99,40 @@ describe('InputDefaultComponent', () => {
     expect(errorMessage).not.toBeNull();
     expect(errorMessage.textContent).toContain('precisa ser um CPF válido');
   });
+
+  it('should display error message for invalid CNPJ', () => {
+    const control = new FormControl('12345', [
+      (fc) => (fc.value === '12345' ? {invalidCNPJ: true}: null)
+    ]);
+    control.markAsTouched();
+
+    component.control = control;
+    fixture.detectChanges();
+
+    const errorMessage = fixture.nativeElement.querySelector('.error-message p');
+    expect(errorMessage).not.toBeNull();
+    expect(errorMessage.textContent).toContain('precisa ser um CNPJ válido');
+  });
+
+  it('should not display error message for required input', () => {
+    component.isRequired = true;
+    component.control = new FormControl('', Validators.required);
+    component.control.setValue('123');
+    component.control.markAsTouched();
+    fixture.detectChanges();
+
+    const errorMessage = fixture.nativeElement.querySelector('.error-message p');
+    expect(errorMessage).toBeNull();
+  })
+
+  it('should not display error message for not required input', () => {
+    component.isRequired = false;
+    component.control = new FormControl('');
+    component.control.markAsTouched();
+    fixture.detectChanges();
+
+    const errorMessage = fixture.nativeElement.querySelector('.error-message p');
+    expect(errorMessage).toBeNull();
+  })
   
 });
