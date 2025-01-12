@@ -35,4 +35,11 @@ describe('CreateNewAccessPlaceComponent', () => {
     expect(component.descriptionControl.value).toBe('');
   })
 
+  it('should verify if the form is valid', () => {
+    component.nameControl.setValue('MeuNome');
+    fixture.detectChanges();
+
+    expect(component.createNewAccessPlace.valid).toBeTrue();
+  })
+
 });
