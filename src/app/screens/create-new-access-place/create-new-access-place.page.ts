@@ -22,7 +22,9 @@ export class CreateNewAccessPlaceComponent  implements OnInit {
     private router: Router
   ) {
     this.createNewAccessPlace = this.fb.group({
-      name: ['', [Validators.required]]
+      name: ['', [Validators.required]],
+      code: [''],
+      description: ['']
     })
     this.optionalsFields = this.fb.group({
       code: [''],
@@ -31,11 +33,11 @@ export class CreateNewAccessPlaceComponent  implements OnInit {
   }
 
   get codeControl(){
-    return this.optionalsFields.get('code') as FormControl;
+    return this.createNewAccessPlace.get('code') as FormControl;
   }
 
   get descriptionControl(){
-    return this.optionalsFields.get('description') as FormControl;
+    return this.createNewAccessPlace.get('description') as FormControl;
   }
 
   get nameControl(){
@@ -71,14 +73,14 @@ export class CreateNewAccessPlaceComponent  implements OnInit {
   }
 
   onDescriptionChange(newDescription: string) {
-    this.optionalsFields.patchValue({
+    this.createNewAccessPlace.patchValue({
       description: newDescription
     });
   }
 
 
   ngOnInit() {
-    this.optionalsFields.patchValue({
+    this.createNewAccessPlace.patchValue({
       code: `CD0${this.numberCount}`
     });
   }
