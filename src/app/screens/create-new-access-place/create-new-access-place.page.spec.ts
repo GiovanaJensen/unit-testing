@@ -61,4 +61,26 @@ describe('CreateNewAccessPlaceComponent', () => {
     expect(component.createNewAccessPlace.valid).toBeTrue();
   })
 
+  it('should not submit the form with invalid data', () => {
+    component.nameControl.setValue('');
+
+    const consoleSpy = spyOn(console, 'log');
+    component.onSubmit();
+
+    expect(consoleSpy).not.toHaveBeenCalledWith('enviado');
+    expect(component.createNewAccessPlace.valid).toBeFalse();
+  })
+
+  it('should call "onCreateAccessPlace" and log valid data', () => {
+    component.codeControl.setValue('CD01');
+    component.nameControl.setValue('Meu nome');
+    component.descriptionControl.setValue('Descrição 1');
+
+    const consoleSpy = spyOn(console, 'log');
+    component.onCreateAccessPlace();
+
+    expect(consoleSpy).toHaveBeenCalledWith(true);
+
+  })
+
 });
