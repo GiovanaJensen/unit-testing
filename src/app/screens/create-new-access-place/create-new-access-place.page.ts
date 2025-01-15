@@ -58,17 +58,6 @@ export class CreateNewAccessPlaceComponent  implements OnInit {
         nmLocalAcesso: this.nameControl.value,
         txDescricao: this.descriptionControl.value
       }
-
-      // this.accessPlace.createAccessPlace(accessPlaceData).subscribe({
-      //   next: async (response) => {
-      //     await this.presentModal();
-      //     this.loaderService.hide();
-      //   },
-      //   error: (error) => {
-      //     console.error("Erro ao criar local de acesso: ", error);
-      //     this.loaderService.hide();
-      //   }
-      // })
     }
   }
 
