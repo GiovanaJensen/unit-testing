@@ -1,27 +1,27 @@
-# UnitTesting
+# Projeto de Testes Unitários com Karma e Jasmine
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.
+Este repositório contém um projeto Angular onde estou aprendendo a escrever testes unitários utilizando **Karma** e **Jasmine**.
 
-## Development server
+## Tecnologias
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Angular**: Framework para construção de aplicativos web dinâmicos.
+- **Karma**: Test runner para executar testes unitários em diferentes navegadores.
+- **Jasmine**: Framework de testes para JavaScript que será usado para escrever os testes unitários.
+- **TypeScript**: Linguagem usada para escrever o código do projeto.
 
-## Code scaffolding
+## Objetivo
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+O objetivo deste projeto é aprender como realizar testes unitários em um projeto Angular usando o **Karma** como executor e o **Jasmine** como framework de asserção. Ao longo do desenvolvimento, o foco é entender como criar, organizar e executar testes unitários de forma eficiente, garantindo a qualidade e a confiabilidade do código.
 
-## Build
+## Como rodar o projeto
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Pré-requisitos
 
-## Running unit tests
+Antes de começar, é necessário ter o **Node.js** e o **Angular CLI** instalados em sua máquina.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+1. **Node.js**: Você pode verificar a instalação do Node.js rodando o comando `node -v` no terminal.
+   - Baixe o Node.js [aqui](https://nodejs.org/).
+   
+2. **Angular CLI**: Instale o Angular CLI globalmente executando:
+   ```bash
+   npm install -g @angular/cli
