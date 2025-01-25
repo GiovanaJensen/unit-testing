@@ -4,18 +4,28 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import { Router } from '@angular/router';
 import { InputDefaultComponent } from "../../components/input-default/input-default.component";
 import { TextareaComponent } from "../../components/textarea/textarea.component";
+import { InformativeModalComponent } from '../../components/informative-modal/informative-modal.component';
 
 @Component({
   selector: 'app-create-new-access-place',
   templateUrl: './create-new-access-place.page.html',
   styleUrls: ['./create-new-access-place.page.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, InputDefaultComponent, TextareaComponent]
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, InputDefaultComponent, TextareaComponent, InformativeModalComponent]
 })
 export class CreateNewAccessPlaceComponent  implements OnInit { 
   createNewAccessPlace: FormGroup;
   optionalsFields: FormGroup;
   numberCount: number = 0;
+  isModalOpen = false;
+  modalProps: ModalType = {
+    hasIcon: false,
+    iconClass: '',
+    subtitle: '',
+    title: '',
+    hasSubtitle: false,
+    modalType: "default"
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -50,14 +60,36 @@ export class CreateNewAccessPlaceComponent  implements OnInit {
     }
   }
 
+  openModal(
+    hasIcon: boolean,
+    iconClass: string,
+    subtitle: string,
+    title: string,
+    hasSubtitle: boolean,
+    modalType: any
+  ) {
+    this.modalProps = { hasIcon, iconClass, subtitle, title, hasSubtitle, modalType};
+    this.isModalOpen = true;
+  }
+
+  handleModalDismiss() {
+    if (this.modalProps.modalType === 'success') {
+      this.router.navigate(['/local-de-acesso']);
+    }
+    this.isModalOpen = false; 
+  }
+
   onCreateAccessPlace(){
-    console.log(this.createNewAccessPlace.valid);
     if(this.createNewAccessPlace.valid) {
       const accessPlaceData = {
         txCodigo: this.codeControl.value,
         nmLocalAcesso: this.nameControl.value,
         txDescricao: this.descriptionControl.value
       }
+
+      const accessPlaceName = this.nameControl.value;
+
+      this.openModal(true, "add", `O local de acesso ${accessPlaceName} foi criado com sucesso`, "Novo local de acesso", true, "success");
     }
   }
 
@@ -74,4 +106,13 @@ export class CreateNewAccessPlaceComponent  implements OnInit {
     });
   }
 
+}
+
+interface ModalType {
+  hasIcon: boolean,
+  iconClass: string,
+  subtitle: string,
+  title: string,
+  hasSubtitle: boolean,
+  modalType: 'default' | 'success' | 'warning' | 'error' | 'informative';
 }

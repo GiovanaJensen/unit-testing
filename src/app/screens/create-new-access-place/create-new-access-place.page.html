@@ -21,3 +21,14 @@
     </form>
   </div>
 </div>
+
+<app-informative-modal
+  *ngIf="isModalOpen"
+  [hasIcon]="modalProps.hasIcon"
+  [iconClass]="modalProps.iconClass"
+  [subtitle]="modalProps.subtitle"
+  [title]="modalProps.title"
+  [hasSubtitle]="modalProps.hasSubtitle"
+  [modalType]="modalProps.modalType"
+  (dismissEvent)="handleModalDismiss()"
+></app-informative-modal>
